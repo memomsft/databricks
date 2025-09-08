@@ -36,7 +36,9 @@ Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de
 ## 3. Dar acceso al Key Vault a Databricks
 
 1. En Azure Portal, ir al **Key Vault → Access control (IAM)**.  
-2. Asignar a la identidad del servicio Databricks (Managed Identity o Enterprise App `AzureDatabricks`) el rol **Key Vault Secrets User**.  
+2. Asignar a la identidad del servicio Databricks (Managed Identity o Enterprise App `AzureDatabricks`) el rol **Key Vault Secrets User**.
+
+![SP](../assets/img/dbx-fabric-0.png)
 
 ---
 
