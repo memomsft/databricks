@@ -22,12 +22,12 @@ Leer (y opcionalmente escribir) tablas Delta del **Lakehouse de Fabric** desde D
 ## 🔐 Código en Databricks Notebook
 
 ```python
-# ---------------------------------------
-# 1. Recuperar secretos del SP
-# ---------------------------------------
-tenant_id  = dbutils.secrets.get("kv-dbx", "FABRIC_TENANT_ID")
-client_id  = dbutils.secrets.get("kv-dbx", "FABRIC_SP_CLIENT_ID")
-client_sec = dbutils.secrets.get("kv-dbx", "FABRIC_SP_CLIENT_SECRET")
+# ------------------------------------------------
+# 1. Obtener secretos del SP desde el secret scope
+# ------------------------------------------------
+tenant_id  = dbutils.secrets.get("kv-dbx", "fabric-tenant-id")
+client_id  = dbutils.secrets.get("kv-dbx", "fabric-sp-client-id")
+client_sec = dbutils.secrets.get("kv-dbx", "fabric-sp-client-secret")
 
 # ---------------------------------------
 # 2. Configuración de Spark para OAuth
@@ -42,7 +42,7 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint.onelake.dfs.fabric.micro
 
 # ---------------------------------------
 # 3. Definir ruta ABFS
-#    - Copia el ABFS path desde Fabric (UI → "Copy ABFS path")
+#    - Copia el ABFS path de la tabla/s desde Fabric (UI → Menu Tabla → Properties → "ABFS path")
 # ---------------------------------------
 path = "abfss://<LakehouseName>@onelake.dfs.fabric.microsoft.com/<WorkspaceName>.Lakehouse/Tables/<TableName>"
 
@@ -51,15 +51,6 @@ path = "abfss://<LakehouseName>@onelake.dfs.fabric.microsoft.com/<WorkspaceName>
 # ---------------------------------------
 df = spark.read.format("delta").load(path)
 df.show(10)
-
-# ---------------------------------------
-# 5. (Opcional) Escribir datos al Lakehouse
-# ---------------------------------------
-out_path = "abfss://<LakehouseName>@onelake.dfs.fabric.microsoft.com/<WorkspaceName>.Lakehouse/Tables/<NuevaTabla>"
-(df.repartition(1)
-   .write.format("delta")
-   .mode("overwrite")
-   .save(out_path))
 
 ```
 
