@@ -4,6 +4,7 @@ Este repositorio muestra diferentes escenarios de integracion de **Databricks** 
 
 1. **SQL Endpoint (TDS/JDBC)** — conectándose a un Warehouse de Fabric como si fuera SQL Server.  
 2. **Lakehouse (OneLake/ABFS)** — accediendo directamente a tablas Delta en OneLake.
+3. TBD..
 
 ## 🎯 Objetivos
 
