@@ -7,7 +7,7 @@ Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de
 ## 1. Crear un Service Principal (App Registration)
 
 1. Ir a **Azure Portal → Microsoft Entra ID → App registrations → New registration**.  
-2. Ingresar un nombre, por ejemplo: `fabric-sp-dbx`.  
+2. Ingresar un nombre, por ejemplo: `fabric-dbx-sp-test`.  
 3. Copiar y guardar:  
    - **Application (client) ID**  
    - **Directory (tenant) ID**  
