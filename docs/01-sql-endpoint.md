@@ -66,6 +66,8 @@ df = (spark.read.format("jdbc")
 
 display(df.limit(10))
 
+```
+
 ---
 
 Nota sobre red
