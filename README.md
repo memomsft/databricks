@@ -15,4 +15,4 @@ Este repositorio muestra diferentes escenarios de integracion de **Databricks** 
 ## 📂 Documentos
 
 - [01 - SQL Endpoint desde Databricks](docs/01-sql-endpoint.md)  
-- [02 - Lakehouse desde Databricks](docs/02-lakehouse.md)  
+- [02 - Lakehouse desde Databricks](docs/02-databricks-to-fabric-lakehouse.md)  
