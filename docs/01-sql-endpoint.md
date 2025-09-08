@@ -14,7 +14,7 @@ Conectarse desde Databricks a un **Warehouse (SQL Endpoint)** de Microsoft Fabri
 
 ## ✅ Requisitos
 - Prerrequisitos completados → [Ver documento](00-prerequisitos.md).  
-- Databricks con el driver JDBC instalado (`com.microsoft.sqlserver:mssql-jdbc`).  
+- Databricks clustercon el driver JDBC instalado (`com.microsoft.sqlserver:mssql-jdbc`). Viene pre-instalado en el cluster classic y en serverless  
 - Salida a internet hacia `*.datawarehouse.fabric.microsoft.com:1433`.
 
 ---
@@ -27,7 +27,7 @@ Conectarse desde Databricks a un **Warehouse (SQL Endpoint)** de Microsoft Fabri
 # ---------------------------------------
 endpoint = "<tu-endpoint>.datawarehouse.fabric.microsoft.com"  # ej: abcd1234.datawarehouse.fabric.microsoft.com
 database = "<tu-warehouse>"  # nombre del Warehouse
-table    = "dbo.<tu-tabla>"       # tabla de ejemplo
+table    = "dbo.<tu-tabla>"       # tabla de ejemplo, o en el schema donde se encuentre
 
 # ---------------------------------------
 # 2. Construir la cadena JDBC
