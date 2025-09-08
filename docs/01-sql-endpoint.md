@@ -5,6 +5,12 @@ Conectarse desde Databricks a un **Warehouse (SQL Endpoint)** de Microsoft Fabri
 
 ---
 
+Este enfoque permite conectar Databricks a un Warehouse de Microsoft Fabric como si fuera un SQL Server clásico. Se usa el driver JDBC de SQL Server y un Service Principal para autenticación. Es ideal para escenarios donde se necesita ejecutar consultas T-SQL, aprovechar catálogo y roles centralizados en Fabric, o integrarse con herramientas como Power BI y SSMS.
+
+![SP](../assets/img/archi.png)
+
+---
+
 ## 🚦 Cuándo usar SQL Endpoint
 - Para **consultas T-SQL** tradicionales.  
 - Para integrarte con **Power BI** o **SSMS**.  
