@@ -67,7 +67,7 @@ display(df.limit(10))
 
 ---
 
-#Nota sobre red
+## Nota sobre red
 
 Se requiere salida a internet hacia *.datawarehouse.fabric.microsoft.com por puerto 1433.
 
