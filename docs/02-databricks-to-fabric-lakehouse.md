@@ -65,6 +65,6 @@ out_path = "abfss://<LakehouseName>@onelake.dfs.fabric.microsoft.com/<WorkspaceN
 
 ---
 
-##📌 Nota sobre red
+## 📌 Nota sobre red
 
 Si tu workspace es NPIP o VNet-injected, coordina con tu equipo de red para permitir salida a onelake.dfs.fabric.microsoft.com en puerto 443.
