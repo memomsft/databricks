@@ -8,7 +8,7 @@ Leer (y opcionalmente escribir) tablas Delta del **Lakehouse de Fabric** desde D
 
 Este enfoque conecta Databricks directamente al Lakehouse de Fabric a través de OneLake, usando el protocolo ABFS sobre HTTPS y autenticación OAuth con Service Principal. Es la mejor opción para procesamiento de datos a escala, ETL o Machine Learning, ya que permite leer y escribir directamente en archivos Delta almacenados en OneLake, optimizados para Spark.
 
-
+![SP](../assets/img/archi.png)
 
 ---
 
