@@ -16,6 +16,9 @@ Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de
   
 *Toma nota de los valores anteriores porque los necesitaremos referenciar mas adelante*
 
+
+![SP](../assets/img/dbx-fabric-1.png)
+
 ---
 
 ## 2. Crear un Key Vault y guardar los secretos
