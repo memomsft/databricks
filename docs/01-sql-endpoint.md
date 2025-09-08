@@ -66,7 +66,7 @@ display(df.limit(10))
 
 ```
 
-![SP](../assets/img/dbx-fabric-0.png)
+![SP](../assets/img/dbx-fabric-3.png)
 
 ---
 
