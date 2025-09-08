@@ -60,6 +60,8 @@ df.show(10)
 
 ```
 
+![SP](../assets/img/dbx-fabric-4.png)
+
 ---
 
 ## 📌 Nota sobre red
