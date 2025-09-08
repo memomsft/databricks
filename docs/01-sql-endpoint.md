@@ -65,3 +65,11 @@ df = (spark.read.format("jdbc")
       .load())
 
 display(df.limit(10))
+
+---
+
+Nota sobre red
+
+Se requiere salida a internet hacia *.datawarehouse.fabric.microsoft.com por puerto 1433.
+
+Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red).
