@@ -8,7 +8,7 @@ Leer (y opcionalmente escribir) tablas Delta del **Lakehouse de Fabric** desde D
 
 ## 🚦 Cuándo usar Lakehouse
 - Para **Machine Learning** o **ETL** en Databricks sobre **Delta**. Permite acceder a recursos de datos de una plataforma a otra.  
-- Cuando quieras acceso a traves de los archivos delta sin pasar por SQL Endpoint.  
+- Cuando quieras acceso a traves de los archivos delta sin pasar por SQL Endpoint y mediante otro API de Dataframe como PySpark
 - Cuando prefieras usar solo **HTTPS/443**.
 
 ---
