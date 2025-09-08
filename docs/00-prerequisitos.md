@@ -30,6 +30,8 @@ Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de
    - `fabric-tenant-id` → Tenant ID del SP.  
    - `fabric-sp-client-id` → Client ID del SP.  
    - `fabric-sp-client-secret` → Client Secret generado.
+  
+![SP](../assets/img/dbx-fabric-2.png)
 
 ---
 
@@ -60,6 +62,7 @@ Debes acceder mediante un menu escondido en la **URL** o la **CLI/API**.
 ### Opción 2 — CLI/API
 También puedes crear el Secret Scope con `databricks secrets create-scope` o la API REST.  
 
+![SP](../assets/img/dbx-scope.png)
 
 ---
 
