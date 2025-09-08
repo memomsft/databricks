@@ -14,8 +14,9 @@ Conectarse desde Databricks a un **Warehouse (SQL Endpoint)** de Microsoft Fabri
 
 ## ✅ Requisitos
 - Prerrequisitos completados → [Ver documento](00-prerequisitos.md).  
-- Databricks clustercon el driver JDBC instalado (`com.microsoft.sqlserver:mssql-jdbc`). Viene pre-instalado en el cluster classic y en serverless  
-- Salida a internet hacia `*.datawarehouse.fabric.microsoft.com:1433`.
+- Databricks clustercon el driver JDBC instalado (`com.microsoft.sqlserver:mssql-jdbc`). Viene pre-instalado en el cluster classic y en serverless
+- El string de conexion del SQL Analytics Endpoint: Se obtiene en el Workspace de Fabric --> settings --> SQL Endpoint --> **SQL connection string**
+- Salida a internet del cluster de Databricks hacia `*.datawarehouse.fabric.microsoft.com:1433`.
 
 ---
 
