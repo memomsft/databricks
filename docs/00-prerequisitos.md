@@ -31,8 +31,6 @@ Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de
    - `fabric-sp-client-id` → Client ID del SP.  
    - `fabric-sp-client-secret` → Client Secret generado.
   
-![SP](../assets/img/dbx-fabric-2.png)
-
 ---
 
 ## 3. Dar acceso al Key Vault a Databricks
@@ -74,4 +72,7 @@ También puedes crear el Secret Scope con `databricks secrets create-scope` o la
 4. Asígnale rol de acceso deacuerdo al modelo de roles:  
    -  *Member/Contributor*.  
    
+![SP](../assets/img/dbx-fabric-2.png)
 
+
+---
