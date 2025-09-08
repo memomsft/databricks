@@ -1,6 +1,6 @@
 # Prerrequisitos en Portal/UI
 
-Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de comandos CLI.
+Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de comandos CLI. Se pueden ejecutar algunos pasos con el CLI pero para efectos de entendimiento se van a realizar mediante la UI
 
 ---
 
