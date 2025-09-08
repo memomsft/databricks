@@ -58,4 +58,4 @@ df.show(10)
 
 ## 📌 Nota sobre red
 
-Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red)..
+Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red).
