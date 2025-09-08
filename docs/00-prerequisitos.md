@@ -45,10 +45,10 @@ Debes acceder mediante un menu escondido en la **URL** o la **CLI/API**.
 ### Opción 1 — URL
 1. Abre en tu navegador en el URL de tu Workspace de Databricks y agrega el siguiente sufijo despues de tu ID de Workspace **#secrets/createScope/**
 
-https://<tu-workspace>.azuredatabricks.net/#secrets/createScope/  
+`https://<tu-workspace>.azuredatabricks.net/#secrets/createScope/`
 
 3. Completa el formulario:  
-- **Scope name:** `kv-dbx`  
+- **Scope name:** por ejemplo `kv-dbx`  
 - **Manage principal:** `All users` (o restringido según tu política)  
 - **Azure Key Vault**:  
   - DNS Name: `https://<nombre-kv>.vault.azure.net/`  -- lo puedes copiar desde la blade de **Properties** del Key Vault en Azure Portal y orresponde al Vault URI
