@@ -72,3 +72,5 @@ display(df.limit(10))
 Se requiere salida a internet hacia *.datawarehouse.fabric.microsoft.com por puerto 1433.
 
 Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red).
+
+Este escenario utiliza computo de tipo "classic" en Databricks. Si se utiliza "serverless" considerar que no es posible instalar librerias a traves de JAR files, afortunadamente la libreria de JDBC para SQL Server que permite conversar con Fabric esta pre-empaquetada en el runtime del serverless cluster de Databricks por lo que no representa un blocker.
