@@ -1,6 +1,12 @@
-![SP](/assets/img/dbx.png)  ![SP](/assets/img/fabric.png)
 
-# Integration of Microsoft Fabric with Databricks
+<p align="center">
+  <img src="assets/img/dbx.png" alt="Databricks" width="120"/>
+  <img src="assets/img/fabric.png" alt="Microsoft Fabric" width="120"/>
+</p>
+
+<p align="center">
+  <b>Integration of Microsoft Fabric with Databricks</b>
+</p>
 
 This repository showcases different scenarios of integration of **Databricks** with **Microsoft Fabric**
 
