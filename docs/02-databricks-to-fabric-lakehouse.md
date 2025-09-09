@@ -1,42 +1,42 @@
 
-# Conexión al Lakehouse de Fabric desde Databricks (ABFS/Delta)
+# Connecting to the Fabric Lakehouse from Databricks (ABFS/Delta)
 
-## 🎯 Objetivo
-Leer (y opcionalmente escribir) tablas Delta del **Lakehouse de Fabric** desde Databricks usando **Service Principal** y **OAuth Client Credentials** sobre ABFS/HTTPS.
+## 🎯 Objetive
+Read (and optionally write) Delta tables from **Fabric Lakehouse** in Databricks using a **Service Principal** & **OAuth Client Credentials** sobre ABFS/HTTPS.
 
 ---
 
-Este enfoque conecta Databricks directamente al Lakehouse de Fabric a través de OneLake, usando el protocolo ABFS sobre HTTPS y autenticación OAuth con Service Principal. Es la mejor opción para procesamiento de datos a escala, ETL o Machine Learning, ya que permite leer y escribir directamente en archivos Delta almacenados en OneLake, optimizados para Spark.
+This approach connects Databricks directly to the Fabric Lakehouse through OneLake, using the ABFS protocol over HTTPS and OAuth authentication with a Service Principal. It is the best option for large-scale data processing, ETL, or Machine Learning, since it allows direct read and write operations on Delta files stored in OneLake, optimized for Spark.
 
 ![SP](../assets/img/archi.png)
 
 ---
 
-## 🚦 Cuándo usar Lakehouse
-- Para **Machine Learning** o **ETL** en Databricks sobre **Delta**. Permite acceder a recursos de datos de una plataforma a otra.  
-- Cuando quieras acceso a traves de los archivos delta sin pasar por SQL Endpoint y mediante otro API de Dataframe como PySpark
-- Cuando prefieras usar solo **HTTPS/443**.
+## 🚦 When to Use Lakehouse
+- For **Machine Learning** or **ETL** in Databricks on **Delta Tables**. It allows accessing data resources across platforms.
+- When you want to access Delta files directly without going through the SQL Endpoint, using a DataFrame API such as PySpark.
+- When you prefer to use only **HTTPS/443**.
 
 ---
 
-## ✅ Requisitos
-- Prerrequisitos completados → [Ver documento](00-prerequisitos.md).  
-- Salida a internet hacia `onelake.dfs.fabric.microsoft.com:443`.
+## ✅ Requirements
+- Prerequisites completed → [See document](00-prerequisitos.md).  
+- Outbound internet access to `onelake.dfs.fabric.microsoft.com:443`.
 
 ---
 
-## 🔐 Código en Databricks Notebook
+## 🔐 Code in Databricks Notebook
 
 ```python
 # ------------------------------------------------
-# 1. Obtener secretos del SP desde el secret scope
+# 1. Retrieve SP secrets from the Secret Scope
 # ------------------------------------------------
 tenant_id  = dbutils.secrets.get("kv-dbx", "fabric-tenant-id")
 client_id  = dbutils.secrets.get("kv-dbx", "fabric-sp-client-id")
 client_sec = dbutils.secrets.get("kv-dbx", "fabric-sp-client-secret")
 
 # ---------------------------------------
-# 2. Configuración de Spark para OAuth
+# 2. Spark configuration for OAuth
 # ---------------------------------------
 spark.conf.set("fs.azure.account.auth.type.onelake.dfs.fabric.microsoft.com", "OAuth")
 spark.conf.set("fs.azure.account.oauth.provider.type.onelake.dfs.fabric.microsoft.com",
@@ -47,13 +47,13 @@ spark.conf.set("fs.azure.account.oauth2.client.endpoint.onelake.dfs.fabric.micro
                f"https://login.microsoftonline.com/{tenant_id}/oauth2/token")
 
 # ---------------------------------------
-# 3. Definir ruta ABFS
-#    - Copia el ABFS path de la tabla/s desde Fabric (UI → Menu Tabla → Properties → "ABFS path")
+# 3. Define ABFS path
+#    - Copy the ABFS path of the table(s) from Fabric (UI → Table Menu → Properties → "ABFS path")
 # ---------------------------------------
 path = "abfss://<LakehouseName>@onelake.dfs.fabric.microsoft.com/<WorkspaceName>.Lakehouse/Tables/<TableName>"
 
 # ---------------------------------------
-# 4. Leer datos Delta desde el Lakehouse
+# 4. Read Delta data from the Lakehouse
 # ---------------------------------------
 df = spark.read.format("delta").load(path)
 df.show(10)
@@ -64,6 +64,7 @@ df.show(10)
 
 ---
 
-## 📌 Nota sobre red
+## 📌 Network Note
 
-Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red).
+- If your workspace is NPIP or VNet-injected, make sure that egress is allowed (configured by your networking team).
+- This scenario will **not work on serverless clusters**, since they do not support the required `spark.conf` settings. Use a classic or pro cluster instead.
