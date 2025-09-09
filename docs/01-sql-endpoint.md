@@ -1,43 +1,43 @@
-# Conexión al SQL Endpoint de Fabric desde Databricks
+# Connecting to the Fabric SQL Endpoint from Databricks
 
-## 🎯 Objetivo
-Conectarse desde Databricks a un **Warehouse (SQL Endpoint)** de Microsoft Fabric usando **Service Principal** y el **driver JDBC**.
+## 🎯 Objetive
+Connect from Databricks to a **SQL Analytics Endpoint)** of Microsoft Fabric using a **Service Principal** and the **JDBC driver**.
 
 ---
 
-Este enfoque permite conectar Databricks al SQL Analytics Endpoint de Microsoft Fabric como si fuera un SQL Server clásico. Se usa el driver JDBC de SQL Server y un Service Principal para autenticación. Es ideal para escenarios donde se necesita ejecutar consultas T-SQL, aprovechar catálogo y roles centralizados en Fabric, o integrarse con herramientas como Power BI y SSMS.
+This approach allows Databricks to connect to the Microsoft Fabric SQL Analytics Endpoint just like a classic SQL Server. It uses the **SQL Server JDBC driver** and a Service Principal for authentication. This is ideal for scenarios where you need to run **T-SQL queries**, leverage the centralized catalog and roles in Fabric, or integrate with tools such as **Power BI and SSMS**.
 
 ![SP](../assets/img/archi.png)
 
 ---
 
-## 🚦 Cuándo usar SQL Endpoint
-- Para **consultas T-SQL** tradicionales.  
-- Para integrarte con **Power BI** o **SSMS**.  
-- Cuando quieras aprovechar un **catálogo SQL centralizado**.
+## 🚦 When to Use SQL Endpoint
+- For traditional **T-SQL queries**.  
+- For integration with **Power BI** or **SSMS**.  
+- When you want to leverage a **centralized SQL catalog**.
 
 ---
 
-## ✅ Requisitos
-- Prerrequisitos completados → [Ver documento](00-prerequisitos.md).  
-- Databricks clustercon el driver JDBC instalado (`com.microsoft.sqlserver:mssql-jdbc`). Viene pre-instalado en el cluster classic y en serverless
-- El string de conexion del SQL Analytics Endpoint: Se obtiene dentro del SQL Endpoint a exponer --> ⚙️settings --> SQL Endpoint --> **SQL connection string**
-- Salida a internet del cluster de Databricks hacia `*.datawarehouse.fabric.microsoft.com:1433`.
+## ✅ Requirements
+- Prerequisites completed → [See document](00-prerequisitos.md).  
+- Databricks cluster with the JDBC driver installed (`com.microsoft.sqlserver:mssql-jdbc`). It comes pre-installed in classic clusters and serverless clusters.
+- The SQL Analytics Endpoint connection string: obtained inside the SQL Endpoint --> ⚙️settings --> SQL Endpoint --> **SQL connection string**
+- Outbound internet access from the Databricks cluster to `*.datawarehouse.fabric.microsoft.com:1433`.
 
 ---
 
-## 🔐 Código en Databricks Notebook
+## 🔐 Code in Databricks Notebook
 
 ```python
 # ---------------------------------------
-# 1. Configurar variables
+# 1. Config variables
 # ---------------------------------------
-endpoint = "<tu-endpoint>.datawarehouse.fabric.microsoft.com"  # ej: abcd1234.datawarehouse.fabric.microsoft.com
-database = "<tu-warehouse>"  # nombre del Warehouse
-table    = "dbo.<tu-tabla>"       # tabla de ejemplo, o en el schema donde se encuentre
+endpoint = "<your-endpoint>.datawarehouse.fabric.microsoft.com"  # ej: abcd1234.datawarehouse.fabric.microsoft.com
+database = "<your-warehouse>"  # name of the Warehouse/Lakehouse
+table    = "dbo.<your-table>"       # your source table 
 
 # ---------------------------------------
-# 2. Construir la cadena JDBC
+# 2. Build the JDBC connection string
 # ---------------------------------------
 jdbc_url = (
     f"jdbc:sqlserver://{endpoint}:1433;"
@@ -48,10 +48,10 @@ jdbc_url = (
 )
 
 # ---------------------------------------
-# 3. Propiedades de conexión
-#    - user = Client ID del SP
-#    - password = Client Secret del SP
-#    Ambos se leen desde el Secret Scope
+# 3. Connection properties
+#    - user = Service Principal Client ID
+#    - password = Service Principal Secret
+#    Both are read from the Secret Scope
 # ---------------------------------------
 connection_props = {
     "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
@@ -60,7 +60,7 @@ connection_props = {
 }
 
 # ---------------------------------------
-# 4. Leer datos desde el SQL Endpoint
+# 4. Read data from the SQL Endpoint
 # ---------------------------------------
 df = (spark.read
       .format("jdbc")
@@ -77,10 +77,10 @@ display(df.limit(10))
 
 ---
 
-## 📌 Nota sobre red
+## 📌 Network Note
 
-- Se requiere salida a internet hacia *.datawarehouse.fabric.microsoft.com por puerto 1433.
+- Outbound internet access is required to *.datawarehouse.fabric.microsoft.com over port 1433.
 
-- Si tu workspace es NPIP o VNet-injected, asegúrate de que exista egress permitido (configurado por tu equipo de red).
+- If your workspace is NPIP or VNet-injected, make sure egress is allowed (configured by your networking team).
 
-- Este escenario utiliza computo de tipo "classic" en Databricks. Si se utiliza "serverless" considerar que no es posible instalar librerias a traves de JAR files, afortunadamente la libreria de JDBC para SQL Server que      permite conversar con Fabric esta pre-empaquetada en el runtime del serverless cluster de Databricks por lo que no representa un blocker.
+- This scenario uses classic compute in Databricks. If serverless is used, note that it is not possible to install libraries via JAR files. Fortunately, the SQL Server JDBC driver required to connect to Fabric is pre-        packaged in the Databricks serverless cluster runtime, so this does not represent a blocker.
