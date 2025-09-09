@@ -2,7 +2,7 @@
 <p align="center">
   <img src="assets/img/dbx.png" alt="Databricks" width="120"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="assets/img/fabric.png" alt="Microsoft Fabric" width="100"/>
+  <img src="assets/img/fabric.png" alt="Microsoft Fabric" width="90"/>
 </p>
 
 # Integration of Microsoft Fabric with Databricks
