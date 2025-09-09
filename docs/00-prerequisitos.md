@@ -44,6 +44,14 @@ These steps are carried out from the **Azure Portal & Fabric Portal**, without t
 
 ## 4. Create a Secret Scope in Databricks
 
+Secret Scopes provide a secure, standardized way to handle credentials (Client IDs, Client Secrets, Tenant IDs, tokens) without exposing them in notebooks, jobs, or logs.
+
+**Key reasons**
+- **Security by design**: Secrets never appear in notebook outputs, logs, or the UI; `dbutils.secrets.get` redacts values automatically.
+- **No secrets in code or repos**: Avoids hard-coding credentials in notebooks, init scripts, or Git history.
+- **Centralized management**: When backed by Azure Key Vault, you gain versioning, expiry, soft delete, RBAC, and rotation policies.
+- **Least privilege & RBAC**: Grant read-secrets only to the workspace identity; developers run code without direct access to raw credentials.
+
 The creation of Secret Scopes does not appear in the standard workspace settings menu.
 You must access it through a hidden **URL** or via the **CLI/API**.
 
