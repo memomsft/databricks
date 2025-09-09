@@ -1,77 +1,77 @@
-# Prerrequisitos en Portal/UI
+# Prerequisites in Portal/UI
 
-Estos pasos se realizan **desde Azure Portal y Fabric Portal**, sin necesidad de comandos CLI. Se pueden ejecutar algunos pasos con el CLI pero para efectos de entendimiento se van a realizar mediante la UI
+These steps are carried out from the **Azure Portal & Fabric Portal**, without the need for CLI commands. Some steps could also be executed using the CLI, but for clarity we will perform them through the UI.
 
 ---
 
-## 1. Crear un Service Principal (App Registration)
+## 1. Create a Service Principal (App Registration)
 
-1. Ir a **Azure Portal → Microsoft Entra ID → App registrations → New registration**.  
-2. Ingresar un nombre, por ejemplo: `fabric-dbx-sp-test`.  
-3. Copiar y guardar:  
+1. Got to **Azure Portal → Microsoft Entra ID → App registrations → New registration**.  
+2. Enter a name, for example: `fabric-dbx-sp-test`.  
+3. Copy and save the following values:  
    - **Application (client) ID**  
    - **Directory (tenant) ID**  
-4. Ir a **Certificates & Secrets → New client secret**.  
-   - Guardar el valor del secret (solo se muestra una vez).
+4. Navigate to **Certificates & Secrets → New client secret**.  
+   - Save the value of the secret (it is only shown once).
   
-*Toma nota de los valores anteriores porque los necesitaremos referenciar mas adelante*
+*Make sure to take note of these values, as they will be referenced later.*
 
 
 ![SP](../assets/img/dbx-fabric-1.png)
 
 ---
 
-## 2. Crear un Key Vault y guardar los secretos
+## 2. Create a Key Vault and store the secrets
 
-1. Ir a **Azure Portal → Key Vaults → Create**.  
-2. En el Key Vault creado, ir a **Secrets → Generate/Import**.  
-3. Crear estos secretos:
+1. Go to **Azure Portal → Key Vaults → Create**.  
+2. In the newly created Key Vault, navigate to **Secrets → Generate/Import**.  
+3. Create the following secrets:
    
-   - `fabric-tenant-id` → Tenant ID del SP.  
-   - `fabric-sp-client-id` → Client ID del SP.  
-   - `fabric-sp-client-secret` → Client Secret generado.
+   - `fabric-tenant-id` → Tenant ID of the Service Principal.  
+   - `fabric-sp-client-id` → Client ID of the Service Principal.  
+   - `fabric-sp-client-secret` → Client Secret generated earlier.
   
 ---
 
-## 3. Dar acceso al Key Vault a Databricks
+## 3. Grant Databricks access to the Key Vault
 
-1. En Azure Portal, ir al **Key Vault → Access control (IAM)**.  
-2. Asignar a la identidad del servicio Databricks (Managed Identity o Enterprise App `AzureDatabricks`) el rol **Key Vault Secrets User**.
+1. In Azure Portal, go to **Key Vault → Access control (IAM)**.  
+2. Assign the Databricks service identity (either the Managed Identity or the Enterprise App `AzureDatabricks`) the role **Key Vault Secrets User**.
 
 ![SP](../assets/img/dbx-fabric-0.png)
 
 ---
 
-## 4. Crear un Secret Scope en Databricks
+## 4. Create a Secret Scope in Databricks
 
-La creación de Secret Scopes no aparece en el menú de configuración del workspace.  
-Debes acceder mediante un menu escondido en la **URL** o la **CLI/API**.
+The creation of Secret Scopes does not appear in the standard workspace settings menu.
+You must access it through a hidden **URL** or via the **CLI/API**.
 
-### Opción 1 — URL
-1. Abre en tu navegador en el URL de tu Workspace de Databricks y agrega el siguiente sufijo despues de tu ID de Workspace **#secrets/createScope/**
+### Option 1 — URL
+1. Open your browser, go to your Databricks workspace URL, and add the following suffix after your Workspace ID: **#secrets/createScope/**
 
 `https://<tu-workspace>.azuredatabricks.net/#secrets/createScope/`
 
-3. Completa el formulario:  
-- **Scope name:** por ejemplo `kv-dbx`  
-- **Manage principal:** `All users` (o restringido según tu política)  
+3. Complete the form:  
+- **Scope name:** for example `kv-dbx`  
+- **Manage principal:** `All users` (or restricted, according to your policy)  
 - **Azure Key Vault**:  
-  - DNS Name: `https://<nombre-kv>.vault.azure.net/`  -- lo puedes copiar desde la blade de **Properties** del Key Vault en Azure Portal y orresponde al Vault URI
-  - Resource ID: lo puedes copiar desde la blade de **Properties** del Key Vault en Azure Portal.  
+  - DNS Name: `https://<nombre-kv>.vault.azure.net/`  -- you can copy this from the **Properties** blade of the Key Vault in Azure Portal (this is the Vault URI).
+  - Resource ID: you can also copy this from the **Properties** blade of the Key Vault in Azure Portal.
 
-### Opción 2 — CLI/API
-También puedes crear el Secret Scope con `databricks secrets create-scope` o la API REST.  
+### Option 2 — CLI/API
+You can also create the Secret Scope with `databricks secrets create-scope` or via the REST API.  
 
 ![SP](../assets/img/dbx-scope.png)
 
 ---
 
-## 5. Asignar permisos en Fabric al SP
+## 5. Assign permissions in Fabric to the Service Principal
 
-1. Entra a **Fabric Portal → Workspace**.  
-2. En el **Warehouse** o **Lakehouse**, selecciona **Manage Access → Add people or groups**.  
-3. Busca el Service Principal por nombre o Client ID.  
-4. Asígnale rol de acceso deacuerdo al modelo de roles:  
+1. Go to **Fabric Portal → Workspace**.  
+2. In the **Warehouse** or **Lakehouse**, select **Manage Access → Add people or groups**.  
+3. Search for the Service Principal by name or Client ID.  
+4. Assign an access role, for example:  
    -  *Member/Contributor*.  
    
 ![SP](../assets/img/dbx-fabric-2.png)
