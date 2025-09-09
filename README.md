@@ -1,4 +1,4 @@
-![SP](../assets/img/dbx.png) ![SP](../assets/img/fabric.png)
+![SP](/assets/img/dbx.png)  ![SP](/assets/img/fabric.png)
 
 # Integration of Microsoft Fabric with Databricks
 
